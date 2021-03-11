@@ -1,37 +1,68 @@
+import React from 'react'
 import "../../../node_modules/react-vis/dist/style.css";
-import {
-  XYPlot,
-  LineSeries,
-  XAxis,
-  YAxis,
-  VerticalGridLines,
-  HorizontalGridLines,
-} from "react-vis";
+import ReactApexChart from 'react-apexcharts'
 
 const Chart = () => {
-  const data = [
-    { x: 0, y: 8 },
-    { x: 1, y: 5 },
-    { x: 2, y: 4 },
-    { x: 3, y: 9 },
-    { x: 4, y: 1 },
-    { x: 5, y: 7 },
-    { x: 6, y: 6 },
-    { x: 7, y: 3 },
-    { x: 8, y: 2 },
-    { x: 9, y: 0 },
-  ];
+
+  const series = [{
+    name: 'Impressions',
+    data: [74, 55, 57, 56, 61, 58, 63, 60, 66]
+  }, {
+    name: 'Turnover',
+    data: [46, 85, 101, 98, 87, 105, 91, 114, 94]
+  }, {
+    name: 'In Progress',
+    data: [26, 41, 36, 26, 45, 48, 52, 53, 41]
+  }]
+
+  const options = {
+    chart: {
+      type: 'bar',
+      height: 350
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: '55%',
+        endingShape: 'rounded'
+      },
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      show: true,
+      width: 2,
+      colors: ['transparent']
+    },
+    xaxis: {
+      categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+    },
+    yaxis: {
+      title: {
+        text: '$ (thousands)'
+      }
+    },
+    fill: {
+      opacity: 1
+    },
+    tooltip: {
+      y: {
+        formatter: function (val) {
+          return "$ " + val + " thousands"
+        }
+      }
+    }
+  }
+
+
+
+
   return (
     <div style={{ marginTop: "15px" }}>
-      <XYPlot height={300} width={300}>
-        <VerticalGridLines />
-        <HorizontalGridLines />
-        <XAxis />
-        <YAxis />
-        <LineSeries data={data} color="red" />
-        <LineSeries data={data} color="purple" />
-        <LineSeries data={data} color="yellow" />
-      </XYPlot>
+      <div id="">
+        <ReactApexChart options={options} series={series} type="bar" height={350} />
+      </div>
     </div>
   );
 };
